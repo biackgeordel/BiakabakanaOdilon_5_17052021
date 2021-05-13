@@ -1,6 +1,9 @@
 const url = "http://localhost:3000/api/teddies";
-let div = document.createElement("div");
-let img = document.createElement("img");
+let bloc = document.createElement("div");
+bloc.classList.add("container");
+let sectionArticle = document.querySelector("#sectionArticle");
+
+console.log(bloc);
 
 fetch(url)
   .then((response) => {
@@ -10,7 +13,19 @@ fetch(url)
   })
   .then((value) => {
     console.log(value);
-    img.setAttribute("src", value[0].imageUrl);
-    div.appendChild(img);
-    document.body.appendChild(div);
+    for (element of value) {
+      let article = document.createElement("article");
+      let lien = document.createElement("a");
+      lien.setAttribute(
+        "href",
+        `./produit.html?name=${element.name}&id=${element._id}&color=${element.colors}&price=${element.price}`
+      );
+      lien.innerHTML = `<img src="${element.imageUrl}"/><span>${element.name}</span>`;
+      article.appendChild(lien);
+      bloc.appendChild(article);
+    }
+  })
+  .catch((error) => {
+    console.log("impossible de se connecter");
   });
+sectionArticle.appendChild(bloc);
