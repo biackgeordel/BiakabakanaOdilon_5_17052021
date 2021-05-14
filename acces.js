@@ -4,7 +4,32 @@ bloc.classList.add("container");
 let sectionArticle = document.querySelector("#sectionArticle");
 
 console.log(bloc);
+function recuperArticle(tab) {
+  for (element of tab) {
+    //article qui va contenir  toutes informations
+    let article = document.createElement("article");
+    let nomProduit = document.createElement("p");
 
+    //le div qui va contenir l'image du produit
+    let divImage = document.createElement("div");
+
+    //le lien vers la page du produit
+    let lien = document.createElement("a");
+
+    lien.setAttribute(
+      "href",
+      `./produit.html?name=${element.name}&id=${element._id}&color=${element.colors}&price=${element.price}&image=${element.imageUrl}`
+    );
+    lien.innerHTML = `<img  title=" photo de la peluche ${element.name}" src="${element.imageUrl}"/>`;
+    divImage.appendChild(lien);
+    article.appendChild(divImage);
+    nomProduit.innerHTML = `<span>${element.name}</span><br/><span><strong>${
+      element.price / 100
+    } euros</strong></span>`;
+    article.appendChild(nomProduit);
+    bloc.appendChild(article);
+  }
+}
 fetch(url)
   .then((response) => {
     if (response.ok) {
@@ -12,20 +37,10 @@ fetch(url)
     }
   })
   .then((value) => {
-    console.log(value);
-    for (element of value) {
-      let article = document.createElement("article");
-      let lien = document.createElement("a");
-      lien.setAttribute(
-        "href",
-        `./produit.html?name=${element.name}&id=${element._id}&color=${element.colors}&price=${element.price}&image=${element.imageUrl}`
-      );
-      lien.innerHTML = `<img src="${element.imageUrl}"/><span>${element.name}</span>`;
-      article.appendChild(lien);
-      bloc.appendChild(article);
-    }
+    recuperArticle(value);
+    console.log(recuperArticle);
   })
   .catch((error) => {
-    console.log("impossible de se connecter");
+    console.log(error);
   });
 sectionArticle.appendChild(bloc);
