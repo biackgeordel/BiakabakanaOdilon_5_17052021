@@ -18,7 +18,7 @@ fetch(url)
       let lien = document.createElement("a");
       lien.setAttribute(
         "href",
-        `./produit.html?name=${element.name}&id=${element._id}&color=${element.colors}&price=${element.price}`
+        `./produit.html?name=${element.name}&id=${element._id}&color=${element.colors}&price=${element.price}&image=${element.imageUrl}`
       );
       lien.innerHTML = `<img src="${element.imageUrl}"/><span>${element.name}</span>`;
       article.appendChild(lien);
