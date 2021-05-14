@@ -15,10 +15,12 @@ function recuperArticle(tab) {
 
     //le lien vers la page du produit
     let lien = document.createElement("a");
-
+    //url contenant les parametres des produits
     lien.setAttribute(
       "href",
-      `./produit.html?name=${element.name}&id=${element._id}&color=${element.colors}&price=${element.price}&image=${element.imageUrl}`
+      `./produit.html?name=${element.name}&id=${element._id}
+      &color=${element.colors}&price=${element.price}
+      &image=${element.imageUrl}&description=${element.description}`
     );
     lien.innerHTML = `<img  title=" photo de la peluche ${element.name}" src="${element.imageUrl}"/>`;
     divImage.appendChild(lien);

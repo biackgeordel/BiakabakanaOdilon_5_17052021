@@ -23,54 +23,68 @@
     <title>Produit</title>
   </head>
   <body>
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="navbar__logo">
-          <img src="models/logo.jpg" class="logo" />
-        </div>
+    <div class="container-fluid">
+      <header>
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <div class="navbar__logo">
+            <img src="models/logo.jpg" class="logo" />
+          </div>
 
-        <div class="navbar__form">
-          <form action="fichier.php" method="POST">
-            <div class="input-group flex-nowrap">
-              <input
-                type="search"
-                class="form-control"
-                placeholder="rechercher un produit"
-                aria-label="search produit"
-                aria-describedby="addon-wrapping"
-              />
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="addon-wrapping"
-                  ><i class="fa fa-search"></i
-                ></span>
+          <div class="navbar__form">
+            <form action="fichier.php" method="POST">
+              <div class="input-group flex-nowrap">
+                <input
+                  type="search"
+                  class="form-control"
+                  placeholder="rechercher un produit"
+                  aria-label="search produit"
+                  aria-describedby="addon-wrapping"
+                />
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="addon-wrapping"
+                    ><i class="fa fa-search"></i
+                  ></span>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
+          <div class="navbar__lien">
+            <a href="contact.html" title="Connectez-vous "
+              ><i class="fas fa-user user__client"></i
+            ></a>
+            <a href="panier.html"
+              ><i class="fas fa-shopping-cart user__panier"></i
+            ></a>
+          </div>
+        </nav>
+      </header>
+      <main>
+        <label for="couleur">couleur</label>
+        <select id="couleur"></select>
+        <div class="card "" style="width:40%;">
+          <img class="card-img-top" src="..." alt="Card image cap" />
+          <div class="card-body">
+            <p class="card-text">
+              Some quick example text to build on the card title and make up the
+              bulk of the card's content.
+            </p>
+          </div>
         </div>
-        <div class="navbar__lien">
-          <a href="contact.html" title="Connectez-vous "
-            ><i class="fas fa-user user__client"></i
-          ></a>
-          <a href="panier.html"
-            ><i class="fas fa-shopping-cart user__panier"></i
-          ></a>
+      </main>
+
+      <footer>
+        <div class="backColorFooter">
+          <p>
+            <a href="#">Contact</a>
+          </p>
+          <p>
+            <a href="#">Informations Légales</a>
+          </p>
+          <p>
+            <a href="#">Services et garanties</a>
+          </p>
         </div>
-      </nav>
-    </header>
-    <label for="couleur">couleur</label>
-    <select id="couleur"></select>
-    <footer>
-      <div class="backColorFooter">
-        <p>
-          <a href="#">Contact</a>
-        </p>
-        <p>
-          <a href="#">Informations Légales</a>
-        </p>
-        <p>
-          <a href="#">Services et garanties</a>
-        </p>
-      </div>
-    </footer>
+      </footer>
+    </div>
   </body>
 </html>

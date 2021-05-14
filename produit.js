@@ -1,19 +1,37 @@
-var urlProduit = window.location.href;
-var selectOption = document.querySelector("#couleur");
-var option;
-console.log(selectOption);
-console.log(urlProduit);
+let urlProduit = window.location.href;
+let selectOption = document.querySelector("#couleur");
+let option;
+
 urlProduit = new URL(urlProduit);
+//recuperation des paramètres
 let id = urlProduit.searchParams.get("id");
 let image = urlProduit.searchParams.get("image");
 let color = urlProduit.searchParams.get("color");
-for (let test of color) {
-  console.log(test);
+let description = urlProduit.searchParams.get("description");
+console.log(description);
+let price = urlProduit.searchParams.get("price");
+
+//la balise  contenant le produit
+let imageProduit = document.querySelector(".card-img-top");
+imageProduit.setAttribute("src", image);
+//balise contenant la description du produit
+let descriptionProduit = document.querySelector(".card-text");
+descriptionProduit.innerText = `${description}`;
+
+//expression reguliere pour recuperer les couleurs dans string color
+let regex = /[a-z|A-Z]+/g;
+//tab qui va stocker les couleurs
+let tab;
+//on recuperer les couleurs dans le tableau
+tab = color.match(regex);
+console.log(tab.length);
+console.log(tab);
+for (couleur of tab) {
+  option = document.createElement("option");
+  option.innerText = `${couleur}`;
+  selectOption.appendChild(option);
 }
-
-console.log(image);
-
-console.log(id); /*
+/*
 fetch("http://localhost:3000/api/teddies")
   .then((response) => {
     if (response.ok) {
@@ -39,12 +57,3 @@ fetch("http://localhost:3000/api/teddies")
   .catch((error) => {
     console.log(error);
   });*/
-
-let imageTest = document.createElement("img");
-imageTest.setAttribute("src", image);
-document.body.append(imageTest);
-let regex = /[a-z|A-Z]+/g;
-let tab;
-tab = color.match(regex);
-console.log(tab.length);
-console.log(tab);
