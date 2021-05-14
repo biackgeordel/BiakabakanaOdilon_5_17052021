@@ -8,7 +8,6 @@ let id = urlProduit.searchParams.get("id");
 let image = urlProduit.searchParams.get("image");
 let color = urlProduit.searchParams.get("color");
 let description = urlProduit.searchParams.get("description");
-console.log(description);
 let price = urlProduit.searchParams.get("price");
 
 //la balise  contenant le produit

@@ -59,15 +59,36 @@
         </nav>
       </header>
       <main>
-        <label for="couleur">couleur</label>
-        <select id="couleur"></select>
-        <div class="card "" style="width:40%;">
-          <img class="card-img-top" src="..." alt="Card image cap" />
-          <div class="card-body">
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
+        <div class="box">
+          <div class="card" style="width: 40%">
+            <img class="card-img-top" alt="Card image cap" />
+            <div class="card-body">
+              <p class="card-text">
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </p>
+            </div>
+          </div>
+
+          <div class="contain__param">
+            <p class="nomProduit"></p>
+            <p class="priceProduit"></p>
+            <button type="button" class="btn btn-primary btn-lg">
+              Ajouter au panier
+            </button>
+            <button type="button" class="btn btn-secondary btn-lg">
+              Commander le produit
+            </button>
+            <div class="form-row align-items-center">
+              <div class="col-auto my-1">
+                <label class="mr-sm-2" for="inlineFormCustomSelect"
+                  >Preference</label
+                >
+                <select class="custom-select mr-sm-2" id="couleur">
+                  <option selected>Couleur</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </main>

@@ -114,13 +114,17 @@ article {
   margin: 5px;
   text-align: center;
   div {
+    box-shadow: 2px 1px 10px rgb(236, 222, 222);
     height: 160px;
     @media (max-width: 980px) {
       width: 100%;
       height: 100%;
     }
+    .box {
+      display: flex;
+      flex-direction: row;
+    }
 
-    box-shadow: 2px 1px 10px rgb(236, 222, 222);
     img {
       width: 100%;
       height: 100%;
