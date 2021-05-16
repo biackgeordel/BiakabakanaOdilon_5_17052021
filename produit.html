@@ -52,8 +52,9 @@
             <a href="contact.html" title="Connectez-vous "
               ><i class="fas fa-user user__client"></i
             ></a>
-            <a href="panier.html"
-              ><i class="fas fa-shopping-cart user__panier"></i
+            <a href="./panier.html"
+              ><i class="fas fa-shopping-cart user__panier"
+                ><span class="bulle"></span></i
             ></a>
           </div>
         </nav>
@@ -68,24 +69,23 @@
           </div>
 
           <div class="contain__param">
-            <p class="nomProduit"></p>
+            <h2 class="nomProduit"></h2>
             <p class="priceProduit"></p>
-            <button type="button" class="btn btn-primary btn-lg">
-              Ajouter au panier
-            </button>
-            <button type="button" class="btn btn-secondary btn-lg">
-              Commander le produit
-            </button>
-            <div class="form-row align-items-center">
-              <div class="col-auto my-1">
-                <label class="mr-sm-2" for="inlineFormCustomSelect"
-                  >Preference</label
-                >
-                <select class="custom-select mr-sm-2" id="couleur">
-                  <option selected>Couleur</option>
-                </select>
+            <form action="contact.html" method="GET">
+              <button type="button" class="btn btn-primary btn-lg btn-panier">
+                Ajouter au panier
+              </button>
+              <div class="form-row align-items-center">
+                <div class="col-auto my-1">
+                  <label class="mr-sm-2" for="inlineFormCustomSelect"
+                    >Preference</label
+                  >
+                  <select class="custom-select mr-sm-2" id="couleur">
+                    <option selected>Couleur</option>
+                  </select>
+                </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </main>

@@ -2,6 +2,15 @@ const url = "http://localhost:3000/api/teddies";
 let bloc = document.createElement("div");
 bloc.classList.add("container");
 let sectionArticle = document.querySelector("#sectionArticle");
+try {
+  if (localStorage.getItem("compteur") != null) {
+    console.log(localStorage.getItem("compteur"));
+    document.querySelector(".bulle").innerHTML =
+      localStorage.getItem("compteur");
+  }
+} catch (err) {
+  console.log("impossible");
+}
 
 console.log(bloc);
 function recuperArticle(tab) {

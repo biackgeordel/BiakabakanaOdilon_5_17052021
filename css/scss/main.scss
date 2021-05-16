@@ -63,6 +63,19 @@ body {
   .user__panier {
     position: relative;
     left: 30%;
+    .bulle {
+      display: inline-block;
+      width: 1.5vw;
+      height: 1.5vw;
+      padding-top: 10%;
+      text-align: center;
+      font-size: 1vw;
+      position: absolute;
+      bottom: 1.3vw;
+      right: 0.1vw;
+
+      border-radius: 100%;
+    }
   }
   .user__client {
     position: relative;
@@ -145,6 +158,19 @@ article {
     }
     .card-img-top {
       height: 70%;
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+    }
+  }
+  .contain__param {
+    @media (max-width: 980px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .btn {
+        margin-bottom: 5%;
+      }
     }
   }
 }
