@@ -1,7 +1,9 @@
+//recuperation de l'url avec location.href
 let urlProduit = window.location.href;
 console.log(urlProduit);
 //balise select qui va contenir les couleur
 let selectOption = document.querySelector("#couleur");
+//balise option de select
 let option;
 //on crée une instance url
 urlProduit = new URL(urlProduit);
@@ -40,30 +42,17 @@ for (couleur of tab) {
   option.innerText = `${couleur}`;
   selectOption.appendChild(option);
 }
-let compteur = 0;
+//affiche compteur du panier
+afficherCompteur();
+
 //bouton pour ajouter des produits dans le panier
 document.querySelector(".btn-panier").addEventListener("click", (e) => {
   e.target.innerText = "Ajouté au panier";
   e.stopPropagation;
-  envoiProduit(nom, price, description, id);
-  if (localStorage.getItem("compteur") === null) {
-    compteur++;
-    localStorage.setItem("compteur", compteur);
-    document.querySelector(".bulle").innerText = `${localStorage.getItem(
-      "compteur"
-    )}`;
-  } else {
-    compteur = parseInt(localStorage.getItem("compteur"), 10);
-    compteur++;
-    localStorage.setItem("compteur", compteur);
-    document.querySelector(".bulle").innerText = `${localStorage.getItem(
-      "compteur"
-    )}`;
-  }
+  envoiLocalStorage(nom, price, description, id);
+  incrementerCompteur();
 });
-document.querySelector(".bulle").innerText = `${localStorage.getItem(
-  "compteur"
-)}`;
+//Event pour changer le texte dans le bouton ajout panier
 document.querySelector(".btn-panier").addEventListener("blur", (e) => {
   e.target.innerText = "Ajouter au panier";
   e.stopPropagation;
@@ -112,8 +101,8 @@ for (let v of tab4) {
 }
 console.log(resul);
 
-//ajout des produits dans le panier
-function envoiProduit(nom, price, description, id) {
+//ajout des produits dans le localStorage
+function envoiLocalStorage(nom, price, description, id) {
   let tab = [];
   let prod = {
     id: id,
@@ -136,7 +125,6 @@ function envoiProduit(nom, price, description, id) {
         tab.push(v[i]);
       } else {
         tab.push(v[i]);
-        test = false;
       }
     }
     if (test) {
@@ -146,10 +134,39 @@ function envoiProduit(nom, price, description, id) {
       console.log("element n'existe pas");
       tab.push(prod);
       localStorage.setItem("produitPanier", JSON.stringify(tab));
+      test = false;
     }
   }
 }
+//incrementer le compteur
+function incrementerCompteur() {
+  if (localStorage.getItem("compteur") === null) {
+    let compteur = 0;
+    compteur++;
+    localStorage.setItem("compteur", compteur);
+    document.querySelector(".bulle").innerText = `${localStorage.getItem(
+      "compteur"
+    )}`;
+  } else {
+    compteur = parseInt(localStorage.getItem("compteur"), 10);
+    compteur++;
+    localStorage.setItem("compteur", compteur);
+    document.querySelector(".bulle").innerText = `${localStorage.getItem(
+      "compteur"
+    )}`;
+  }
+}
+
+//afficher le compteur sur la page produit
+function afficherCompteur() {
+  if (localStorage.getItem("compteur") !== null) {
+    document.querySelector(".bulle").innerText = `${localStorage.getItem(
+      "compteur"
+    )}`;
+  }
+}
 //localStorage.removeItem("produitPanier");
+//localStorage.removeItem("compteur");
 
 /*
 fetch("http://localhost:3000/api/teddies")
