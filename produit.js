@@ -40,14 +40,13 @@ for (couleur of tab) {
   option.innerText = `${couleur}`;
   selectOption.appendChild(option);
 }
-let compteur;
+let compteur = 0;
 //bouton pour ajouter des produits dans le panier
 document.querySelector(".btn-panier").addEventListener("click", (e) => {
-  e.target.innerText = "produit ajouté";
+  e.target.innerText = "Ajouté au panier";
   e.stopPropagation;
   envoiProduit(nom, price, description, id);
   if (localStorage.getItem("compteur") === null) {
-    compteur = 0;
     compteur++;
     localStorage.setItem("compteur", compteur);
     document.querySelector(".bulle").innerText = `${localStorage.getItem(
@@ -117,24 +116,40 @@ console.log(resul);
 function envoiProduit(nom, price, description, id) {
   let tab = [];
   let prod = {
-    id: nom,
+    id: id,
+    quantite: 1,
     price: price,
     description: description,
+    nom: nom,
   };
-  if (localStorage.getItem("produitPanier") == null) {
+  let test = false;
+
+  if (localStorage.getItem("produitPanier") === null) {
     tab.push(prod);
     localStorage.setItem("produitPanier", JSON.stringify(tab));
   } else {
-    tab = JSON.parse(localStorage.getItem("produitPanier"));
-    for (produit of tab) {
-      if (produit.id === prod.id) {
-        console.log("le produit existe deja");
+    let v = JSON.parse(localStorage.getItem("produitPanier"));
+    for (let i = 0; i < v.length; i++) {
+      if (v[i].id == prod.id) {
+        test = true;
+        v[i].quantite++;
+        tab.push(v[i]);
       } else {
-        console.log("le produit n'existe pas");
+        tab.push(v[i]);
+        test = false;
       }
+    }
+    if (test) {
+      console.log("element existe");
+      localStorage.setItem("produitPanier", JSON.stringify(tab));
+    } else {
+      console.log("element n'existe pas");
+      tab.push(prod);
+      localStorage.setItem("produitPanier", JSON.stringify(tab));
     }
   }
 }
+//localStorage.removeItem("produitPanier");
 
 /*
 fetch("http://localhost:3000/api/teddies")
