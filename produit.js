@@ -22,21 +22,22 @@ nomProduit.innerText = `${nom}`;
 //balise contenant le prix du produit
 let priceProduit = document.querySelector(".priceProduit");
 priceProduit.innerHTML = `<strong>Prix : ${price} euros</strong>`;
-//la balise  contenant le produit
+//la balise contenant l'image du produit
 let imageProduit = document.querySelector(".card-img-top");
 imageProduit.setAttribute("src", image);
 //balise contenant la description du produit
 let descriptionProduit = document.querySelector(".card-text");
 descriptionProduit.innerText = `${description}`;
 
-//expression reguliere pour recuperer les couleurs dans string color
+//expression reguliere pour recuperer les couleurs dans la variable color
 let regex = /[a-z|A-Z]+/g;
 //tab qui va stocker les couleurs
 let tab;
-//on recuperer les couleurs dans le tableau
+//on recuperer les couleurs dans un  tableau
 tab = color.match(regex);
 console.log(tab.length);
 console.log(tab);
+//on ajoute les couleurs dans la balise select
 for (couleur of tab) {
   option = document.createElement("option");
   option.innerText = `${couleur}`;
@@ -45,11 +46,12 @@ for (couleur of tab) {
 //affiche compteur du panier
 afficherCompteur();
 
-//bouton pour ajouter des produits dans le panier
+//bouton pour ajouter des produits dans le locaStorage
 document.querySelector(".btn-panier").addEventListener("click", (e) => {
   e.target.innerText = "Ajouté au panier";
   e.preventDefault();
   envoiLocalStorage(nom, price, description, id);
+  incrementerCompteur();
 });
 //Event pour changer le texte dans le bouton ajout panier
 document.querySelector(".btn-panier").addEventListener("blur", (e) => {
@@ -59,6 +61,13 @@ document.querySelector(".btn-panier").addEventListener("blur", (e) => {
 
 //ajout des produits dans le localStorage
 function envoiLocalStorage(nom, price, description, id) {
+  colorSelect = document.querySelector("#couleur").value;
+
+  if (colorSelect === "Couleur") {
+    colorSelect = "inconnue";
+  }
+  console.log(colorSelect);
+
   let tab = [];
   let prod = {
     id: id,
@@ -67,6 +76,7 @@ function envoiLocalStorage(nom, price, description, id) {
     description: description,
     nom: nom,
     image: image,
+    couleur: colorSelect,
   };
   let test = false;
 
@@ -94,20 +104,17 @@ function envoiLocalStorage(nom, price, description, id) {
       test = false;
     }
   }
-  incrementerCompteur();
 }
 //incrementer le compteur
 function incrementerCompteur() {
-  if (localStorage.getItem("compteur") === null) {
-    let compteur = 0;
-    compteur++;
-    localStorage.setItem("compteur", compteur);
-    document.querySelector(".bulle").innerText = `${localStorage.getItem(
-      "compteur"
-    )}`;
-  } else {
-    compteur = parseInt(localStorage.getItem("compteur"), 10);
-    compteur++;
+  let compteur = 0;
+  let tab;
+  if (localStorage.getItem("produitPanier") !== null) {
+    tab = JSON.parse(localStorage.getItem("produitPanier"));
+    for (let i = 0; i < tab.length; i++) {
+      compteur += tab[i].quantite;
+    }
+    console.log("valeur compteur" + compteur);
     localStorage.setItem("compteur", compteur);
     document.querySelector(".bulle").innerText = `${localStorage.getItem(
       "compteur"
@@ -123,5 +130,5 @@ function afficherCompteur() {
     )}`;
   }
 }
-/*localStorage.removeItem("produitPanier");
-localStorage.removeItem("compteur");*/
+//localStorage.removeItem("produitPanier");
+//localStorage.removeItem("compteur");
