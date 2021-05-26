@@ -112,7 +112,7 @@ function incrementerCompteur() {
   if (localStorage.getItem("produitPanier") !== null) {
     tab = JSON.parse(localStorage.getItem("produitPanier"));
     for (let i = 0; i < tab.length; i++) {
-      compteur += tab[i].quantite;
+      compteur += parseInt(tab[i].quantite, 10);
     }
     console.log("valeur compteur" + compteur);
     localStorage.setItem("compteur", compteur);
