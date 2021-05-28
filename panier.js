@@ -31,15 +31,17 @@ function afficherPanier(tab) {
            <img  class=" img-tab" src="${tab[i].image}"/>
            <br/>${tab[i].nom}
         </td>
-        <td class="nom">
-            ${tab[i].couleur}
-        </td>
-        <td>
+        <td colspan=2>
         <div class="container-btn">
-        <button class=produit-${i}${i}>+</button>
+        <button  class=produit-${i}${i}>+</button>
         <button class=produit-${i}>${c}</button>
-        <input class="val" 
-        type="text"value="${tab[i].quantite}" id="${tab[i].id}"/>
+        <input 
+        type="text"value="${tab[i].quantite}" id="idProduit${i}"class="${
+        tab[i].id
+      }"/>
+        <span id=colorProduit${i}>
+            ${tab[i].couleur}
+            </span>
                
       </div>
         </td>
@@ -54,82 +56,100 @@ function afficherPanier(tab) {
     </tr>`;
   }
 }
-
-//permet de modifier la quantité en fonction de l'event change
-document.querySelector(".body-tab").addEventListener("change", (e) => {
-  console.log(
-    "la quantite" + e.target.value + "est id:" + e.target.getAttribute("id")
-  );
-  let id = e.target.getAttribute("id");
-  if (!isNaN(id) || id < 0) {
-    for (let i = 0; i < tab.length; i++) {
-      if (tab[i].id === id) {
-        tab[i].quantite = e.target.value;
-      }
-    }
-    afficherPanier(tab);
-    localStorage.setItem("produitPanier", JSON.stringify(tab));
-    incrementerCompteur();
-  } else {
-    afficherPanier(tab);
-  }
-});
-//permet de modifier la quantité en fonction de l'event click
+//augmente la quantite du produit en fonction de l'event click
 document.querySelector(".body-tab").addEventListener("click", function (e) {
-  e.stopPropagation();
-  try {
-    let mini;
-    let idProduit;
-    let operation;
-    let test = e.target.getAttribute("class");
-    test = "." + test;
-    operation = document.querySelector(test);
-    if (operation.textContent === "+") {
-      idProduit = document
-        .querySelector(test + "+button+input")
-        .getAttribute("id");
+  let max = e.target.innerText; //texte contenu dans le  button
+  if (max === "+") {
+    let classButton = e.target.getAttribute("class");
+    classButton = "." + classButton; //creation d'un selecteur de type class du button
+    let classIdProduit = document //class contenant le vrai id du produit
+      .querySelector(classButton + "+button+input")
+      .getAttribute("class");
 
-      console.log(idProduit);
-      mini = parseInt(document.querySelector(test + "+button+input").value, 10);
-      mini++;
-      document
-        .querySelector(test + "+button+input")
-        .setAttribute("value", mini);
-      console.log(tab); //tab des produits
-      for (let i = 0; i < tab.length; i++) {
-        if (tab[i].id === idProduit) tab[i].quantite = mini;
-        afficherPanier(tab);
-      }
-    } else if (operation.textContent === "-") {
-      idProduit = document.querySelector(test + "+input").getAttribute("id");
-      mini = parseInt(document.querySelector(test + "+input").value, 10);
+    let idColor = document //on recupere l'id de la couleur
+      .querySelector(classButton + "+button+input+span")
+      .getAttribute("id");
+    idColor = "#" + idColor; //creation d'un selecteur de type id de la couleur
+    let couleurProduit = document.querySelector(idColor).innerText; //on recupere la couleur du produit
 
-      if (mini !== 1) {
-        mini--;
-        document.querySelector(test + "+input").setAttribute("value", mini);
-        for (let i = 0; i < tab.length; i++) {
-          if (tab[i].id === idProduit) tab[i].quantite = mini;
-          afficherPanier(tab);
-        }
-      }
-    } else if (operation.textContent === "X") {
-      console.log("supprimer le produit");
-      idProduit = document.querySelector(test + "+input").getAttribute("id");
-
-      for (let i = 0; i < tab.length; i++) {
-        if (tab[i].id === idProduit && tab[i].quantite === 1) {
-          tab.splice(i, 1);
-          afficherPanier(tab);
-        }
+    let quantite = parseInt(
+      document.querySelector(classButton + "+button+input").value //on recupere la quantite dans l'input
+    );
+    quantite++; //on incremente la quantite en fonction du nombre de click
+    document.querySelector(classButton + "+button+input").value = quantite; //on insere la nouvelle valeur  de quantite dans value de l'input
+    for (let i = 0; i < tab.length; i++) {
+      //on parcours le tab de localstorage contenu les produits
+      if (tab[i].id === classIdProduit && tab[i].couleur === couleurProduit) {
+        tab[i].quantite = quantite; //on ajoute la nouvelle valeur
+        afficherPanier(tab); //on affiche le nouveau tab
+        localStorage.setItem("produitPanier", JSON.stringify(tab)); //on enregistre le nouveau tab dans le localStorage
+        incrementerCompteur(); //mise à jour du compteur
       }
     }
-    console.log("taille" + tab.length);
-    localStorage.setItem("produitPanier", JSON.stringify(tab)); //nouveau tab dans le localStorage
-    incrementerCompteur();
-  } catch (error) {
-    console.log(error);
   }
 });
+//diminue la quantite du produit en fonction de l'event click
+document.querySelector(".body-tab").addEventListener("click", function (e) {
+  let mini = e.target.innerText; //texte contenu dans le  button
+  if (mini === "-") {
+    let classButton = e.target.getAttribute("class");
+    classButton = "." + classButton; //creation d'un selecteur de type class du button
+
+    let classIdProduit = document //class contenant le vrai id du produit
+      .querySelector(classButton + "+input")
+      .getAttribute("class");
+
+    let idColor = document //on recupere l'id de la couleur
+      .querySelector(classButton + "+input+span")
+      .getAttribute("id");
+    idColor = "#" + idColor; //creation d'un selecteur de type id de la couleur
+    let couleurProduit = document.querySelector(idColor).innerText; //on recupere la couleur du produit
+
+    let quantite = parseInt(
+      document.querySelector(classButton + "+input").value //on recupere la quantite dans l'input
+    );
+    quantite--; //on incremente la quantite en fonction du nombre de click
+    document.querySelector(classButton + "+input").value = quantite; //on insere la nouvelle valeur  de quantite dans value de l'input
+    for (let i = 0; i < tab.length; i++) {
+      //on parcours le tab de localstorage contenu les produits
+      if (tab[i].id === classIdProduit && tab[i].couleur === couleurProduit) {
+        tab[i].quantite = quantite; //on ajoute la nouvelle valeur
+        afficherPanier(tab); //on affiche le nouveau tab
+        localStorage.setItem("produitPanier", JSON.stringify(tab)); //on enregistre le nouveau tab dans le localStorage
+        incrementerCompteur(); //mise à jour du compteur
+      }
+    }
+  }
+});
+//supprimer le produit en fonction de l'event click
+document.querySelector(".body-tab").addEventListener("click", function (e) {
+  let deleteProduit = e.target.innerText; //texte contenu dans le  button
+  if (deleteProduit === "X") {
+    let classButton = e.target.getAttribute("class");
+    classButton = "." + classButton; //creation d'un selecteur de type class du button
+
+    let classIdProduit = document //class contenant le vrai id du produit
+      .querySelector(classButton + "+input")
+      .getAttribute("class");
+
+    let idColor = document //on recupere l'id de la couleur
+      .querySelector(classButton + "+input+span")
+      .getAttribute("id");
+    idColor = "#" + idColor; //creation d'un selecteur de type id de la couleur
+    let couleurProduit = document.querySelector(idColor).innerText; //on recupere la couleur du produit
+
+    for (let i = 0; i < tab.length; i++) {
+      //on parcours le tab de localstorage contenu les produits
+      if (tab[i].id === classIdProduit && tab[i].couleur === couleurProduit) {
+        tab.splice(i, 1);
+        afficherPanier(tab); //on affiche le nouveau tab
+      }
+    }
+    localStorage.setItem("produitPanier", JSON.stringify(tab)); //on enregistre le nouveau tab dans le localStorage
+    incrementerCompteur(); //mise à jour du compteur
+  }
+});
+
 window.addEventListener("load", function (e) {
   console.log(e.target);
   afficherPanier(tab);

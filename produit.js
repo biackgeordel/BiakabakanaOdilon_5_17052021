@@ -86,7 +86,9 @@ function envoiLocalStorage(nom, price, description, id) {
   } else {
     let v = JSON.parse(localStorage.getItem("produitPanier"));
     for (let i = 0; i < v.length; i++) {
-      if (v[i].id == prod.id) {
+      if (v[i].id == prod.id && prod.couleur == v[i].couleur) {
+        console.log("couleur tab" + v[i].color);
+        console.log("couleur prod" + prod.couleur);
         test = true;
         v[i].quantite++;
         tab.push(v[i]);
