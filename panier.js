@@ -150,6 +150,31 @@ document.querySelector(".body-tab").addEventListener("click", function (e) {
   }
 });
 
+//modifier la quantite du produit avec l'event change
+document.querySelector(".body-tab").addEventListener("change", function (e) {
+  let quantite = parseInt(e.target.value);
+  if (isNaN(quantite) || quantite < 0) {
+    afficherPanier(tab); //on afficher le tableau des produits stocké dans le localStorage
+  } else {
+    let idProduit = e.target.getAttribute("class"); //on recupere l'id du produit correspendant à l'id contenu dans le tab
+    let idInput = "#" + e.target.getAttribute("id"); //id de l'input concerné par le changement de la valeur
+    console.log(idInput);
+    let couleurProduit = document //on recupére l'id de la couleur du produit
+      .querySelector(idInput + "+span")
+      .getAttribute("id");
+    couleurProduit = document.querySelector("#" + couleurProduit).innerText;
+    console.log(couleurProduit);
+    for (let i = 0; i < tab.length; i++) {
+      if (tab[i].id === idProduit && tab[i].couleur === couleurProduit) {
+        tab[i].quantite = quantite;
+        afficherPanier(tab);
+      }
+    }
+    localStorage.setItem("produitPanier", JSON.stringify(tab)); //on enregistre le nouveau tab dans le localStorage
+    incrementerCompteur(); //mise à jour du compteur
+  }
+});
+
 window.addEventListener("load", function (e) {
   console.log(e.target);
   afficherPanier(tab);

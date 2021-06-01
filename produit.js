@@ -54,7 +54,7 @@ document.querySelector(".btn-panier").addEventListener("click", (e) => {
   incrementerCompteur();
 });
 //Event pour changer le texte dans le bouton ajout panier
-document.querySelector(".btn-panier").addEventListener("blur", (e) => {
+document.querySelector(".btn-panier").addEventListener("mouseout", (e) => {
   e.target.innerText = "Ajouter au panier";
   e.stopPropagation;
 });
