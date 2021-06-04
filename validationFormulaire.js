@@ -3,7 +3,8 @@ let validPrenom;
 let valideAdress;
 let validEmail;
 let validCity;
-function afficherFormulaire(tab) {
+
+async function afficherFormulaire(tab) {
   if (tab !== null || tab.length !== 0) {
     let titre = document.createElement("h2");
     titre.innerText = "Information du client";
@@ -51,14 +52,14 @@ function afficherFormulaire(tab) {
       <div class="col-md-3 mb-3">
         <label for="city">Ville</label>
         <input type="text" class="form-control" id="city" placeholder="Le nom de la ville" required>
-        <div class="invalid-feedback">
+        <div>
           
         </div>
       </div>
       
     </div>
     
-    <button class="btn btn-primary" type="submit">Passer la commande</button><div></div>
+    <button class="btn btn-primary btn-command" type="submit">Passer la commande</button><div role="alert"></div>
   `;
     document.querySelector(".container").appendChild(titre);
     document.querySelector(".container").appendChild(form);
@@ -137,13 +138,16 @@ document.querySelector(".btn").addEventListener("click", function (e) {
   e.preventDefault();
   if (validCity && validEmail && validNom && validPrenom && valideAdress) {
     document.querySelector(".btn+div").innerText = " ";
+    document.querySelector(".btn+div").classList.remove("alert");
+    document.querySelector(".btn+div").classList.remove("alert-danger");
     window.setTimeout(function () {
       window.location.href = "commande.html";
     }, 300);
   } else {
-    document.querySelector(".btn+div").style.color = "red";
+    document.querySelector(".btn+div").classList.add("alert");
+    document.querySelector(".btn+div").classList.add("alert-danger");
     document.querySelector(".btn+div").innerText =
-      "Impossible d'envoyer le formulaire";
+      "Impossible de passer la commande,les informations saisies sont incomplétes";
     console.log(document.querySelector(".btn+div").innerText);
   }
 });

@@ -32,6 +32,11 @@
           <div class="navbar__form">
             <form action="fichier.php" method="POST">
               <div class="input-group flex-nowrap">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="addon-wrapping"
+                    ><i class="fa fa-search"></i
+                  ></span>
+                </div>
                 <input
                   type="search"
                   class="form-control"
@@ -39,16 +44,11 @@
                   aria-label="search produit"
                   aria-describedby="addon-wrapping"
                 />
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="addon-wrapping"
-                    ><i class="fa fa-search"></i
-                  ></span>
-                </div>
               </div>
             </form>
           </div>
           <div class="navbar__lien">
-            <a href="./index.html">Accueil</a>
+            <a href="./index.html" class="user__client">Accueil</a>
             <a href="panier.html"
               ><i class="fas fa-shopping-cart user__panier"
                 ><span class="bulle"></span></i
