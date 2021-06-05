@@ -69,7 +69,7 @@ body {
   .user__client,
   .user__panier {
     //display: inline-block;
-    font-size: 25px;
+    font-size: 20px;
     padding-top: 2%;
     @media (max-width: 980px) {
       font-size: 4vw;
@@ -242,6 +242,7 @@ img {
 .table td,
 .table th {
   text-align: center;
+  margin: auto;
 }
 table {
   @media (max-width: 980px) {
@@ -251,17 +252,38 @@ table {
     font-size: 2vw;
   }
 }
+.form-row {
+  margin-left: 0;
+  margin-right: 0;
+}
+.cont {
+  h2 {
+    @media (max-width: 980px) {
+      text-align: center;
+      font-size: 5vw;
+    }
+  }
+}
 
 .container-btn {
   width: 100%;
   height: 50%;
-  padding-left: 10%;
+  padding-left: 15%;
+  @media (max-width: 980px) {
+    margin: 0;
+    padding-left: 7vw;
+    width: 55vw;
+  }
 
   margin: auto;
   span {
     float: right;
     width: 50%;
     text-align: center;
+    @media (max-width: 980px) {
+      display: inline-block;
+      width: 20vw;
+    }
   }
   input {
     text-align: center;
@@ -270,6 +292,18 @@ table {
     float: left;
     height: 3vw;
     border-style: none;
+    @media (max-width: 980px) {
+      width: 5vw;
+      font-size: 1.5vw;
+      display: inline-block;
+      height: 4vw;
+      margin-left: -19%;
+    }
+    @media (max-width: 230px) {
+      width: 6vw;
+      margin-left: -22%;
+    }
+
     float: left;
     margin-left: -20%;
     border-right: 1px solid grey;
@@ -289,19 +323,27 @@ table {
     font-size: 20px;
     @media (max-width: 980px) {
       font-size: 2vw;
+      text-align: center;
+      margin-left: 0;
+      width: 4vw;
+      height: 4vw;
     }
     //operation +
     &:nth-child(1) {
       float: left;
-      border-bottom-left-radius: 5px;
-      border-top-left-radius: 5px;
+      border-bottom-left-radius: 0.3vw;
+      border-top-left-radius: 0.3vw;
     }
     //operation -
     &:nth-child(2) {
       float: left;
       margin-left: 10%;
-      border-bottom-right-radius: 5px;
-      border-top-right-radius: 5px;
+      @media (max-width: 980px) {
+        margin-left: 10.5%;
+      }
+
+      border-bottom-right-radius: 0.3vw;
+      border-top-right-radius: 0.3vw;
     }
   }
 }

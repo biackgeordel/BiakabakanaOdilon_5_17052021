@@ -17,7 +17,7 @@ function afficherPanier(tab) {
   let resultat = 0;
   let c;
   if (tab === null || tab.length === 0) {
-    document.querySelector(".container").innerHTML =
+    document.querySelector(".cont").innerHTML =
       "<h2>Votre panier est vide</h2>";
   } else {
     bodyTable.innerHTML = "";

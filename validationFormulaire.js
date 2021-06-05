@@ -61,8 +61,8 @@ async function afficherFormulaire(tab) {
     
     <button class="btn btn-primary btn-command" type="submit">Passer la commande</button><div role="alert"></div>
   `;
-    document.querySelector(".container").appendChild(titre);
-    document.querySelector(".container").appendChild(form);
+    document.querySelector(".cont").appendChild(titre);
+    document.querySelector(".cont").appendChild(form);
   } else {
     console.log("le tableau n'est pas disponible");
   }
@@ -91,7 +91,7 @@ document.querySelector("#city").addEventListener("input", function (e) {
   console.log(validCity);
 });
 document.querySelector("#adress").addEventListener("input", function (e) {
-  let regex = new RegExp(/^[0-9]{1,4}[,\s]{1}[-,\sa-zA-Z]{10,}$/);
+  let regex = new RegExp(/^[0-9]{1,4}[,\s]{1}[-,\sa-zA-Z0-9]{10,}$/);
   let nomInput = "adresse";
   valideAdress = validationElement(e, regex, nomInput);
   console.log(valideAdress);
