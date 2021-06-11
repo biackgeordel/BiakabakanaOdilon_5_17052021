@@ -4,7 +4,7 @@ let valideAdress;
 let validEmail;
 let validCity;
 
-async function afficherFormulaire(tab) {
+function afficherFormulaire(tab) {
   if (tab !== null || tab.length !== 0) {
     let titre = document.createElement("h2");
     titre.innerText = "Information du client";
@@ -70,7 +70,7 @@ async function afficherFormulaire(tab) {
 afficherFormulaire(tab);
 //verification du nom du client
 document.querySelector("#firstName").addEventListener("input", function (e) {
-  let regex = new RegExp(/^[a-zA-Z]+$/);
+  let regex = new RegExp(/^[a-zA-Z]+[\s(a-zA-Z)]+$/);
   let nomInput = "nom";
   validNom = validationElement(e, regex, nomInput);
   console.log(validNom);
@@ -78,14 +78,14 @@ document.querySelector("#firstName").addEventListener("input", function (e) {
 
 //verification du prenom du client
 document.querySelector("#lastName").addEventListener("input", function (e) {
-  let regex = new RegExp(/^[a-zA-Z]+(\s[a-zA-Z]+)?$/);
+  let regex = new RegExp(/^[a-zA-Z]+[-\s(a-zA-Z)]+?$/);
   let nomInput = "prenom";
   validPrenom = validationElement(e, regex, nomInput);
   console.log(validPrenom);
 });
 //verification du nom de la ville saisi par le client
 document.querySelector("#city").addEventListener("input", function (e) {
-  let regex = new RegExp(/^[a-zA-Z]+[\sa-zA-Z]+[a-zA-Z]$/);
+  let regex = new RegExp(/^[a-zA-Z]+[\'-\sa-zA-Z]+[a-zA-Z]$/);
   let nomInput = "ville";
   validCity = validationElement(e, regex, nomInput);
   console.log(validCity);
@@ -99,7 +99,7 @@ document.querySelector("#adress").addEventListener("input", function (e) {
 
 //verification de l'adresse email du client
 document.querySelector("#email").addEventListener("input", function (e) {
-  let regex = new RegExp(/^[a-z]+[a-z0-9\-]+@[a-z]+[.][a-z]{2,}$/);
+  let regex = new RegExp(/^[a-z]+[.a-z0-9\-]+@[a-z]+[.][a-z]{2,}$/);
   let nomInput = " adresse email";
   validEmail = validationElement(e, regex, nomInput);
   console.log(validEmail);
@@ -141,6 +141,7 @@ document.querySelector(".btn").addEventListener("click", function (e) {
     document.querySelector(".btn+div").classList.remove("alert");
     document.querySelector(".btn+div").classList.remove("alert-danger");
     window.setTimeout(function () {
+      commanderProduit();
       window.location.href = "commande.html";
     }, 300);
   } else {
@@ -151,3 +152,21 @@ document.querySelector(".btn").addEventListener("click", function (e) {
     console.log(document.querySelector(".btn+div").innerText);
   }
 });
+/*la fonction commanderProduit recupererles informations du client 
+et le tableau des produits qui seront stockés dans un localStorage afin d'être envoyer à l'API */
+function commanderProduit() {
+  let product_id = [];//tableau contenant les id des produits
+  let contact;//objet contenant les informations du client
+  for (let i = 0; i < tab.length; i++) {
+    product_id.push(tab[i].id);
+  }
+  contact = {
+    'firstName': document.querySelector("#firstName").value,
+    'lastName': document.querySelector("#lastName").value,
+   'address': document.querySelector("#adress").value,
+    'city': document.querySelector("#city").value,
+    'email': document.querySelector("#email").value,
+  };
+  localStorage.setItem("commandeContact", JSON.stringify(contact));
+  localStorage.setItem("produit", JSON.stringify(product_id));
+}

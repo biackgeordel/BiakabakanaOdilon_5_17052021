@@ -36,7 +36,7 @@ function recuperArticle(tab) {
     article.appendChild(divImage);
     nomProduit.innerHTML = `<span>${element.name}</span><br/><span><strong>${
       element.price / 100
-    } euros</strong></span>`;
+    }€</strong></span>`;
     article.appendChild(nomProduit);
     bloc.appendChild(article);
   }

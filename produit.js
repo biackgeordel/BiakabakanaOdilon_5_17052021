@@ -30,7 +30,7 @@ let descriptionProduit = document.querySelector(".card-text");
 descriptionProduit.innerText = `${description}`;
 
 //expression reguliere pour recuperer les couleurs dans la variable color
-let regex = /[a-z|A-Z]+/g;
+let regex = /[a-z\s|A-Z\s]+/g;
 //tab qui va stocker les couleurs
 let tab;
 //on recuperer les couleurs dans un  tableau
